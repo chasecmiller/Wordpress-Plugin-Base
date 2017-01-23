@@ -66,7 +66,7 @@ class Rest {
             '/edit',
             [
                 [
-                    'methods' => \WP_REST_Server::READABLE,
+                    'methods' => \WP_REST_Server::EDITABLE,
                     'callback' => [$this, 'edit'],
                     'permission_callback' => [$this, 'canEdit'],
                     'args' => [],
@@ -82,7 +82,7 @@ class Rest {
             '/add',
             [
                 [
-                    'methods' => \WP_REST_Server::READABLE,
+                    'methods' => \WP_REST_Server::CREATABLE,
                     'callback' => [$this, 'add'],
                     'permission_callback' => [$this, 'canAdd'],
                     'args' => [],
@@ -98,7 +98,7 @@ class Rest {
             '/delete',
             [
                 [
-                    'methods' => \WP_REST_Server::READABLE,
+                    'methods' => \WP_REST_Server::DELETABLE,
                     'callback' => [$this, 'delete'],
                     'permission_callback' => [$this, 'canDelete'],
                     'args' => [],
