@@ -110,7 +110,7 @@ class Rest {
     }
 
     /**
-     *
+     * (Browse)read
      * @param WP_REST_Request $request
      * @return \WP_REST_Response
      */
@@ -120,6 +120,7 @@ class Rest {
     }
 
     /**
+     * b(Read)ead
      * @param WP_REST_Request $request
      * @return bool
      */
@@ -128,7 +129,7 @@ class Rest {
     }
 
     /**
-     *
+     * br(Edit)ad
      * @param WP_REST_Request $request
      * @return \WP_REST_Response
      */
@@ -138,6 +139,7 @@ class Rest {
     }
 
     /**
+     * bre(Add)d
      * @param WP_REST_Request $request
      * @return bool
      */
@@ -147,7 +149,7 @@ class Rest {
 
 
     /**
-     *
+     * brea(Delete)
      * @param WP_REST_Request $request
      * @return \WP_REST_Response
      */
@@ -201,6 +203,4 @@ class Rest {
     public function canDelete(\WP_REST_Request $request) {
         return false;
     }
-
-
 }
