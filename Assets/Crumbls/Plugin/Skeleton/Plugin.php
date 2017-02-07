@@ -11,7 +11,7 @@ defined('ABSPATH') or exit(1);
 class Plugin {
     public function __construct() {
         // Bring our rest interface online, example only.
-        new Rest();
+        // new Rest();
 
     }
 
