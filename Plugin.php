@@ -1,46 +1,45 @@
 <?php
 /*
-Plugin Name: Wordpress Plugin Base
-Plugin URI: https://github.com/chasecmiller/Wordpress-Plugin-Base
-Description: Description plugin
-Version: 1.0
-Author: Author Name
-Text Domain: crumbls-plugins-skeleton
-Domain Path: /Assets/Language/
-
-	License: GNU General Public License v3.0
-	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Plugin Name: Example OOP Plugin
+Plugin URI: https://crumbls.com/writing-wordpress-plugins-the-object-oriented-way/
+Description: A very basic OOP plugin example.
+Version: 0.1.0
+Author: Chase C. Miller
+Author URI: https://crumbls.com
 */
 
-namespace Crumbls\Plugin\Skeleton;
+// This line is our namespace. You want to keep it unique to you. You will use this throughout the plugin.
+namespace Crumbls\Plugin\Example;
 
-$td = str_replace('\\', '-', strtolower(__NAMESPACE__));
-$assets = dirname(__FILE__).'/Assets/';
+
+// Easy trap door.
+defined('ABSPATH') || exit(1);
+
 /**
- * Localization
- */
-load_plugin_textdomain($td, false, $assets.'Language/');
+ * This is our autoloader.
+ * It does all of the heavy lifting to find files you are looking for.
+ * It searches in the plugin/src directory for classes to automatically include as you call them.
+ * That helps keep unneeded classes from hogging resources.
+ **/
+spl_autoload_register(function ($class) {
 
+    // Simple Sanitization
+    $class = str_replace(' ', '', ucwords(preg_replace('#[^\da-z/]#i', ' ', str_replace('\\', '/', $class))));
+    // Set file path
+    $file = __DIR__ . '/src/' . $class . '.php';
 
-require(dirname(__FILE__).'/ClassAutoLoader.php');
-$loader = \ClassAutoloader::getLoader();
-$loader->add('', $assets);
+    if (file_exists($file)) {
+        require_once($file);
+        return true;
+    }
 
-$plugin = null;
+    return false;
+});
+
+// This is a simple switch to load code if you're in the /wp-admin side of things, or floating around on the front end. We are calling the static getInstance method to get our actual plugin rolling.
 if (is_admin()) {
-    $plugin = new Admin();
+    Admin::getInstance();
 } else {
-    $plugin = new Plugin();
+    Common::getInstance();
 }
 
-// Activation Hook
-register_activation_hook(
-    __FILE__,
-    [$plugin, 'activate']
-);
-
-// Deactivation Hook
-register_deactivation_hook(
-    __FILE__,
-    [$plugin, 'deactivate']
-);
